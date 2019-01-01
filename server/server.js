@@ -15,6 +15,7 @@ io.on('connection',(socket)=>{
 
 io.on('userJoin',(params,callback)=>{
 
+    callback({userJoined:'ola'});
 })
 });
 
