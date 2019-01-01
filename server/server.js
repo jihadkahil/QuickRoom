@@ -9,7 +9,7 @@ var io = socketIO(server);
 const port = process.env.PORT || 3000;
 io.on('connection',(socket)=>{
 
-    io.to(socket.id).emit('connect',{socketId:socket.id})
+    io.emit('connect',{socketId:`${socket.id}`})
 
 
 
