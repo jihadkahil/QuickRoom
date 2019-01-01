@@ -7,13 +7,8 @@ var server = http.createServer(app);
 var io = socketIO(server);
 
 const port = process.env.PORT || 3000;
-io.on('connection',(socket,callback)=>{
+io.on('connection',(socket)=>{
   
-
-    callback('success');
-
-    // io.emit('test',"ola");
-    // io.emit('connect',{socketId:`${socket.id}`})
 
 io.on('userJoin',(params,callback)=>{
 
