@@ -10,10 +10,8 @@ const port = process.env.PORT || 3000;
 io.on('connection',(socket)=>{
   
 
-io.emit('userJoin',(params,callback)=>{
+io.emit('userJoin',{succes:true})
 
-    callback({userJoined:'ola'});
-})
 });
 
 
