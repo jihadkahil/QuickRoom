@@ -9,15 +9,12 @@ var io = socketIO(server);
 const port = process.env.PORT || 3000;
 io.on('connection',(socket)=>{
 
-    socket.emit('connect','connection success')
-console.log(socket.id);
+    socket.emit('connect',{socketId:socket.id})
+
 
 
 io.on('userJoin',(params,callback)=>{
-    if(params.name=='jihad')
-    {
-        callback('success');
-    }
+    
 })
 });
 
