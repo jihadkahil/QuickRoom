@@ -7,9 +7,10 @@ var server = http.createServer(app);
 var io = socketIO(server);
 
 const port = process.env.PORT || 3000;
-io.on('connection',(socket)=>{
-    socket.emit('connect',{socketId:`${socket.id}`});
+io.on('connection',(socket,callback)=>{
+  
 
+    callback('success');
 
     // io.emit('test',"ola");
     // io.emit('connect',{socketId:`${socket.id}`})
