@@ -9,12 +9,12 @@ var io = socketIO(server);
 const port = process.env.PORT || 3000;
 io.on('connection',(socket)=>{
 
-    socket.emit('connect',{socketId:socket.id})
+    io.to(socket.id).emit('connect',{socketId:socket.id})
 
 
 
 io.on('userJoin',(params,callback)=>{
-    
+
 })
 });
 
