@@ -7,12 +7,12 @@ var authentication = (req, res, next) => {
   
     User.findByToken(token).then((user) => {
         if (!user) {
-            return Promise.reject({ error: 'invalide authentication' });
+            return Promise.reject( 'invalide authentication');
         }
 
     
         req.user = user;
-        req.token = token;
+        res.token = token;
         next();
 
 
