@@ -66,8 +66,8 @@ app.post('/login',(req,res)=>{
 
 app.delete('/logout',authentication,(req,res)=>{
 
-    req.user.removeToken().then((user)=>{
-
+    console.log(req.user);
+    req.user.removeToken(req.token).then((user)=>{
         res.status(200).send({success:true});
     }).catch((e)=>{
         res.status(400).send({error:e});
