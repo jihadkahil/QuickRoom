@@ -4,8 +4,11 @@ const express = require('express');
 const http = require('http');
 var _ = require('lodash');
 const socketIO = require('socket.io');
-var {mongoose} = require('./db/mongoose');
 
+
+
+var {mongoose} = require('./db/mongoose');
+var {authentication} = require('./midelleware/authentication');
 var {User} = require('./models/user');
 
 var app = new express();
@@ -42,19 +45,12 @@ app.post('/registration',(req,res)=>{
 });
 
 
-app.get('/loginByToken/:token',(req,res)=>{
+app.post('/login',(req,res)=>{
 
+    var body = _.pick(req.body,['email','password']);
 
-    var token = req.params.token;
-
-    User.findByToken(token).then((user)=>{
-
-       
-        res.send(user);
-    }).catch((e)=>{
-        res.status(400).send(e);
-    })
 });
+
 
 // io.on('connection',(socket)=>{
   
