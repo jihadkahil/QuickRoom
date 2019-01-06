@@ -1,5 +1,5 @@
-var {mongoose} = require('mongoose');
-
+const mongoose = require('mongoose');
+const _ = require('lodash');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 
@@ -45,10 +45,8 @@ var UserSchema = new mongoose.Schema({
 UserSchema.methods.generateAuthenticationToken = function()
 {
     var user = this;
-
     var access = "QuickAuth"
-
-    var token = jwt.sign({id:user._id.toHexString(),access},process.env.QuickSecret).toString();
+    var token = jwt.sign({_id:user._id.toHexString(),access},process.env.QuickSecret).toString();
 
     user.tokens = user.tokens.concat({access, token});
     return user.save().then(()=>{
@@ -60,3 +58,28 @@ UserSchema.methods.generateAuthenticationToken = function()
     //save in DB
 
 }
+
+UserSchema.statics.findByToken = function(token) {
+   
+    var user = this;
+    var decoded ;
+    
+  
+    try{
+        decoded = jwt.verify(token,process.env.QuickSecret);
+    }catch(e)
+    {
+
+        return Promise.reject({error:'Invalide Session'});
+    }
+    
+    return user.findOne({
+        '_id': decoded._id,
+        'tokens.token': token,
+        'tokens.access': 'QuickAuth'
+      });
+
+}
+
+var User = mongoose.model('User',UserSchema);
+module.exports = {User};

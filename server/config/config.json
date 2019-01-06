@@ -2,10 +2,10 @@
     "test":{
         "PORT":3000,
         "MONGODB_URI":"mongodb://localhost:27017/QuickRoomAppTest",
-        "JWT_SECRET":"kdajejhdjehdjeje"
+        "QuickSecret":"kdajejhdjehdjeje"
     },"development":{
         "PORT":3000,
         "MONGODB_URI":"mongodb://localhost:27017/QuickRoomApp",
-        "JWT_SECRET":"dkasdksakdlaksdk"
+        "QuickSecret":"dkasdksakdlaksdk"
     }
 }
