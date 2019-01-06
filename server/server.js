@@ -49,8 +49,31 @@ app.post('/login',(req,res)=>{
 
     var body = _.pick(req.body,['email','password']);
 
+    var user_ ;
+    User.findByCredentials(body.email,body.password).
+    then((user)=>{
+        user_ = user;
+        return user.generateAuthenticationToken();
+    }).then((token)=>{
+        console.log(token);
+        res.header('x-auth',token).send(user_);
+    }).catch((e)=>{
+        console.log(e);
+        res.status(400).send({error:e});
+    })
+
 });
 
+app.delete('/logout',authentication,(req,res)=>{
+
+    req.user.removeToken().then((user)=>{
+
+        res.status(200).send({success:true});
+    }).catch((e)=>{
+        res.status(400).send({error:e});
+    })
+
+});
 
 // io.on('connection',(socket)=>{
   

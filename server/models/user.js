@@ -103,5 +103,44 @@ UserSchema.pre('save',function (next){
     
   });
 
+  UserSchema.statics.findByCredentials = function(email,password){
+    
+   var user = this;
+
+   return user.findOne({email}).then((user)=>{
+       if(!user)
+       return Promise.reject({error:'user does not exist'});
+
+      return new Promise((resolved,reject)=>{
+
+        bcrypt.compare(password,user.password,(err,res)=>{
+            console.log(err);
+            if(err)
+            reject({error:err})
+            else if(res)
+            resolved(user);
+            else 
+            reject({error:'email or password is not valide'});
+        });
+      }) ;
+   });
+
+  }
+
+
+  UserSchema.methods.removeToken = function(token)
+{
+
+  
+    var User = this;
+    return User.update({
+     $pull:{
+        tokens:{
+          token
+        }
+     }
+    });
+};
+
 var User = mongoose.model('User',UserSchema);
 module.exports = {User};
