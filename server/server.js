@@ -37,6 +37,8 @@ app.post('/registration',(req,res)=>{
         {
             if(e.code===11000)
            return res.status('400').send({error:'this email is already exist'});
+           else
+           return res.status('400').send({error:'email invalid'});
         }
     });
 
